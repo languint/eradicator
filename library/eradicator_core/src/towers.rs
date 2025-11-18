@@ -1,4 +1,4 @@
-pub enum Towers {
+pub enum Tower {
     Ranger,
     Shotgunner,
     Operator,

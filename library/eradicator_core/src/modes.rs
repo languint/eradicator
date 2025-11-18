@@ -1,4 +1,4 @@
-pub enum Modes {
+pub enum StandardMode {
     Easy,
     Intermediate,
     Elite,
@@ -8,7 +8,7 @@ pub enum Modes {
     Ultra,
 }
 
-pub enum EventModes {
+pub enum EventMode {
     XMASNormal,
     XMASNightmare,
     Chirstmas1Normal,
@@ -25,4 +25,9 @@ pub enum EventModes {
     Halloween4Nightmare,
     TowerBattlesNormal,
     TowerBattlesNightmare,
+}
+
+pub enum Gamemode {
+    Standard(StandardMode),
+    Event(EventMode)
 }
