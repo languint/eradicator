@@ -1,5 +1,3 @@
-use crate::defs::NrOf;
-
 pub enum Towers {
     Ranger,
     Shotgunner,
