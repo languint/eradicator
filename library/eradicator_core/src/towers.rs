@@ -1,3 +1,4 @@
+#[derive(Debug, Clone, Copy)]
 pub enum Tower {
     Ranger,
     Shotgunner,
@@ -50,4 +51,63 @@ pub enum Tower {
     GooGunner,
     ShockTrooper,
     ShotgunnerLegacy,
+}
+
+impl TryFrom<&str> for Tower {
+    type Error = String;
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "Ranger" => Ok(Tower::Ranger),
+            "Shotgunner" => Ok(Tower::Shotgunner),
+            "Operator" => Ok(Tower::Operator),
+            "Mine Layer" => Ok(Tower::MineLayer),
+            "Sniper" => Ok(Tower::Sniper),
+            "Cryo Blaster" => Ok(Tower::CryoBlaster),
+            "Missile Trooper" => Ok(Tower::MissileTrooper),
+            "Patrol Boat" => Ok(Tower::PatrolBoat),
+            "Farm" => Ok(Tower::Farm),
+            "Barracks" => Ok(Tower::Barracks),
+            "Grenadier" => Ok(Tower::Grenadier),
+            "EDJ" => Ok(Tower::Edj),
+            "John" => Ok(Tower::John),
+            "Laser Gunner" => Ok(Tower::LaserGunner),
+            "Toxicnator" => Ok(Tower::Toxicnator),
+            "Sentry" => Ok(Tower::Sentry),
+            "Artillery" => Ok(Tower::Artillery),
+            "Jet Trooper" => Ok(Tower::JetTrooper),
+            "AA Turret" => Ok(Tower::AaTurret),
+            "Armored Factory" => Ok(Tower::ArmoredFactory),
+            "Juggernaut" => Ok(Tower::Juggernaut),
+            "Ghost" => Ok(Tower::Ghost),
+            "Mobster" => Ok(Tower::Mobster),
+            "Railgunner" => Ok(Tower::Railgunner),
+            "Machine Gunner" => Ok(Tower::MachineGunner),
+            "Medic" => Ok(Tower::Medic),
+            "Slammer" => Ok(Tower::Slammer),
+            "XWM Turret" => Ok(Tower::XwmTurret),
+            "Golden Ranger" => Ok(Tower::GoldenRanger),
+            "Golden Mine Layer" => Ok(Tower::GoldenMineLayer),
+            "Combat Drone" => Ok(Tower::CombatDrone),
+            "Warship" => Ok(Tower::Warship),
+            "Helicopter" => Ok(Tower::Helicopter),
+            "Golden Juggernaut" => Ok(Tower::GoldenJuggernaut),
+            "Golden Mobster" => Ok(Tower::GoldenMobster),
+            "Shield Tower" => Ok(Tower::ShieldTower),
+            "Behemoth Factory" => Ok(Tower::BehemothFactory),
+            "War Machine Factory" => Ok(Tower::WarMachineFactory),
+            "Refractor" => Ok(Tower::Refractor),
+            "Cryo Ranger" => Ok(Tower::CryoRanger),
+            "Commander" => Ok(Tower::Commander),
+            "Z.E.D." => Ok(Tower::Zed),
+            "Scarecrow" => Ok(Tower::Scarecrow),
+            "Flame Trooper" => Ok(Tower::FlameTrooper),
+            "Relic" => Ok(Tower::Relic),
+            "Cryo Helicopter" => Ok(Tower::CryoHelicopter),
+            "Ice Breaker" => Ok(Tower::IceBreaker),
+            "Troll Tower" => Ok(Tower::TrollTower),
+            "Goo Gunner" => Ok(Tower::GooGunner),
+            "Shock Trooper" => Ok(Tower::ShockTrooper),
+            _ => Err(format!("Unknown tower `{value}`")),
+        }
+    }
 }

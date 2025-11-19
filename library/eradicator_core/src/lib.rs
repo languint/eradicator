@@ -1,4 +1,6 @@
-pub mod towers;
 pub mod defs;
-pub mod modes;
+pub mod maps;
 pub mod matchmaking;
+pub mod modes;
+pub mod strategy;
+pub mod towers;

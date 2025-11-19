@@ -2,6 +2,9 @@
 resolver = "3"
 members = ["eradicator", "library/eradicator_core"]
 
+[workspace.dependencies]
+eradicator_core = { path = "library/eradicator_core" }
+
 [workspace.lints.clippy]
 all = { level = "warn", priority = -1 }
 pedantic = { level = "warn", priority = -1 }
