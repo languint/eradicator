@@ -1,7 +1,6 @@
 use std::path::PathBuf;
 
 use clap::{Parser, Subcommand};
-use owo_colors::{AnsiColors, DynColors, OwoColorize};
 
 #[derive(Parser, Debug)]
 pub struct Cli {

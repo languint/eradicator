@@ -1,13 +1,13 @@
-use std::{fmt::Debug, fs, process::exit};
+use std::{fs, process::exit};
 
 use clap::Parser;
-use eradicator_core::{strategy::StrategyParser, towers::Tower};
+use eradicator_core::strategy::StrategyParser;
 use owo_colors::OwoColorize;
 
 mod cli;
 mod state;
 
-fn main() -> Result<(), String> {
+fn main() {
     let cli = cli::Cli::parse();
 
     match cli.command {
@@ -71,6 +71,4 @@ fn main() -> Result<(), String> {
             );
         }
     }
-
-    Ok(())
 }

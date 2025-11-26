@@ -2,16 +2,13 @@ use std::fmt;
 
 // TODO: Expand to include all maps from the TDX wiki.
 #[derive(Debug, Clone)]
+#[derive(Default)]
 pub enum Maps {
+    #[default]
     Baseplate,
     DesertedIsland,
 }
 
-impl Default for Maps {
-    fn default() -> Self {
-        Maps::Baseplate
-    }
-}
 
 impl fmt::Display for Maps {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
@@ -28,7 +25,7 @@ impl TryFrom<&str> for Maps {
         match value {
             "Baseplate" => Ok(Maps::Baseplate),
             "Deserted Island" => Ok(Maps::DesertedIsland),
-            _ => Err(format!("Unknown map `{}`", value)),
+            _ => Err(format!("Unknown map `{value}`")),
         }
     }
 }

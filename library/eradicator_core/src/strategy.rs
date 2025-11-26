@@ -26,6 +26,7 @@ pub enum StrategyAction {
 }
 
 #[derive(Debug)]
+#[derive(Default)]
 pub struct StrategyActions {
     pub actions: Vec<StrategyAction>,
 }
@@ -36,28 +37,15 @@ impl StrategyActions {
     }
 }
 
-impl Default for StrategyActions {
-    fn default() -> Self {
-        Self { actions: vec![] }
-    }
-}
 
 #[derive(Debug)]
+#[derive(Default)]
 pub struct Strategy {
     pub header: StrategyHeader,
     pub tower_location_table: StrategyTowerLocationTable,
     pub actions: StrategyActions,
 }
 
-impl Default for Strategy {
-    fn default() -> Self {
-        Self {
-            header: StrategyHeader::default(),
-            tower_location_table: vec![],
-            actions: StrategyActions::default(),
-        }
-    }
-}
 
 #[derive(Debug)]
 pub enum StrategyParsingError {
@@ -88,6 +76,7 @@ pub struct StrategyParser<'a> {
 }
 
 impl<'a> StrategyParser<'a> {
+    #[must_use] 
     pub fn new(src: &'a str) -> Self {
         Self {
             src,
@@ -110,7 +99,7 @@ impl<'a> StrategyParser<'a> {
     }
 }
 
-impl<'a> StrategyParser<'a> {
+impl StrategyParser<'_> {
     pub fn parse(&mut self) -> Result<Strategy, StrategyParsingError> {
         let mut sections: Vec<Vec<&str>> = vec![];
 
@@ -127,7 +116,7 @@ impl<'a> StrategyParser<'a> {
                 self.advance();
             }
 
-            sections.push(section)
+            sections.push(section);
         }
 
         if sections.len() != 3 {
@@ -184,9 +173,9 @@ impl<'a> StrategyParser<'a> {
                     }
                 }
                 "loadout" => {
-                    for (index, tower_part) in parts[1].split(',').into_iter().enumerate() {
+                    for (index, tower_part) in parts[1].split(',').enumerate() {
                         if let Ok(tower) = Tower::try_from(tower_part.trim()) {
-                            header.loadout[index] = Some(tower)
+                            header.loadout[index] = Some(tower);
                         }
                     }
                 }
@@ -209,7 +198,7 @@ impl<'a> StrategyParser<'a> {
         let mut table: StrategyTowerLocationTable = StrategyTowerLocationTable::default();
 
         for (index, line) in section.iter().enumerate() {
-            let parts: Vec<&str> = line.trim().split_whitespace().collect();
+            let parts: Vec<&str> = line.split_whitespace().collect();
 
             if parts.len() != 3 {
                 return Err(StrategyParsingError::InvalidTowerLocationTable(format!(
@@ -245,7 +234,7 @@ impl<'a> StrategyParser<'a> {
     }
 }
 
-impl<'a> StrategyParser<'a> {
+impl StrategyParser<'_> {
     fn parse_action_block(
         &self,
         lines: &[&str],
@@ -324,10 +313,9 @@ impl<'a> StrategyParser<'a> {
                 continue;
             }
 
-            if line.starts_with('@') {
-                let after_at = &line[1..];
+            if let Some(after_at) = line.strip_prefix('@') {
                 let (cash_str, _) =
-                    after_at.split_at(after_at.find(|c: char| c == '{').unwrap_or(after_at.len()));
+                    after_at.split_at(after_at.find('{').unwrap_or(after_at.len()));
 
                 let cash = cash_str.trim().parse::<u32>().map_err(|_| {
                     StrategyParsingError::InvalidActions(format!(
@@ -354,7 +342,7 @@ impl<'a> StrategyParser<'a> {
                             block_lines.extend(
                                 inside
                                     .split(';')
-                                    .map(|v| v.trim())
+                                    .map(str::trim)
                                     .filter(|v| !v.is_empty()),
                             );
                         }
@@ -395,9 +383,7 @@ impl<'a> StrategyParser<'a> {
             match parts[0] {
                 "place" => {
                     if parts.len() != 2 {
-                        return Err(StrategyParsingError::InvalidActions(format!(
-                            "`place` expects 1 arg"
-                        )));
+                        return Err(StrategyParsingError::InvalidActions("`place` expects 1 arg".to_string()));
                     }
                     actions.push(StrategyAction::Place(parts[1].parse::<u32>().map_err(
                         |_| StrategyParsingError::InvalidActions("Invalid tower id".into()),
@@ -406,9 +392,9 @@ impl<'a> StrategyParser<'a> {
 
                 "upgrade" => {
                     if parts.len() != 3 {
-                        return Err(StrategyParsingError::InvalidActions(format!(
-                            "`upgrade` expects 2 args"
-                        )));
+                        return Err(StrategyParsingError::InvalidActions(
+                            "`upgrade` expects 2 args".to_string(),
+                        ));
                     }
                     let id = parts[1].parse::<u32>().map_err(|_| {
                         StrategyParsingError::InvalidActions("Invalid tower id".into())
