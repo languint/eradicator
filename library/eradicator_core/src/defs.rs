@@ -17,3 +17,20 @@ pub enum Location {
 pub type PlayerLoadout = [Option<Tower>; NrOf::LOADOUT_SLOTS];
 
 pub const EMPTY_LOADOUT: PlayerLoadout = [None, None, None, None, None, None];
+
+#[derive(Debug)]
+pub enum UpgradePath {
+    Top,
+    Bottom,
+}
+
+impl TryFrom<&str> for UpgradePath {
+    type Error = String;
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "TOP" => Ok(Self::Top),
+            "BOTTOM" => Ok(Self::Bottom),
+            _ => Err(format!("`{value}` is not a valid upgrade path")),
+        }
+    }
+}
