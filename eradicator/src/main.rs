@@ -1,7 +1,7 @@
-use std::{fs, process::exit};
+use std::{fmt::Debug, fs, process::exit};
 
 use clap::Parser;
-use eradicator_core::strategy::StrategyParser;
+use eradicator_core::{strategy::StrategyParser, towers::Tower};
 use owo_colors::OwoColorize;
 
 mod cli;
@@ -50,7 +50,25 @@ fn main() -> Result<(), String> {
                 }
             };
 
-            println!("      {} strategy file", "Parsed".bright_green().bold());
+            println!(
+                "      {} strategy, mode={}, loadout={}, map={}",
+                "Parsed".bright_green().bold(),
+                strategy.header.mode.bold(),
+                strategy
+                    .header
+                    .loadout
+                    .to_vec()
+                    .iter()
+                    .filter(|t| t.is_some())
+                    .map(|t| {
+                        let tower = unsafe { t.unwrap_unchecked() };
+
+                        format!("{}", tower.bold())
+                    })
+                    .collect::<Vec<String>>()
+                    .join(", "),
+                strategy.header.map.bold()
+            );
         }
     }
 

@@ -1,3 +1,5 @@
+use std::fmt;
+
 #[derive(Debug, Clone, Copy)]
 pub enum Tower {
     Ranger,
@@ -108,6 +110,64 @@ impl TryFrom<&str> for Tower {
             "Goo Gunner" => Ok(Tower::GooGunner),
             "Shock Trooper" => Ok(Tower::ShockTrooper),
             _ => Err(format!("Unknown tower `{value}`")),
+        }
+    }
+}
+
+impl fmt::Display for Tower {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        match self {
+            Self::Ranger => write!(f, "Ranger"),
+            Self::Shotgunner => write!(f, "Shotgunner"),
+            Self::Operator => write!(f, "Operator"),
+            Self::MineLayer => write!(f, "MineLayer"),
+            Self::Sniper => write!(f, "Sniper"),
+            Self::CryoBlaster => write!(f, "Cryo Blaster"),
+            Self::MissileTrooper => write!(f, "Missile Trooper"),
+            Self::PatrolBoat => write!(f, "Patrol Boat"),
+            Self::Farm => write!(f, "Farm"),
+            Self::Barracks => write!(f, "Barracks"),
+            Self::Grenadier => write!(f, "Grenadier"),
+            Self::Edj => write!(f, "EDJ"),
+            Self::John => write!(f, "John"),
+            Self::LaserGunner => write!(f, "Laser Gunner"),
+            Self::Toxicnator => write!(f, "Toxicnator"),
+            Self::Sentry => write!(f, "Sentry"),
+            Self::Artillery => write!(f, "Artillery"),
+            Self::JetTrooper => write!(f, "Jet Trooper"),
+            Self::AaTurret => write!(f, "AA Turret"),
+            Self::ArmoredFactory => write!(f, "Armored Factory"),
+            Self::Juggernaut => write!(f, "Juggernaut"),
+            Self::Ghost => write!(f, "Ghost"),
+            Self::Mobster => write!(f, "Mobster"),
+            Self::Railgunner => write!(f, "Railgunner"),
+            Self::MachineGunner => write!(f, "Machine Gunner"),
+            Self::Medic => write!(f, "Medic"),
+            Self::Slammer => write!(f, "Slammer"),
+            Self::XwmTurret => write!(f, "XWM Turret"),
+            Self::GoldenRanger => write!(f, "Golden Ranger"),
+            Self::GoldenMineLayer => write!(f, "Golden Mine Layer"),
+            Self::CombatDrone => write!(f, "Combat Drone"),
+            Self::Warship => write!(f, "Warship"),
+            Self::Helicopter => write!(f, "Helicopter"),
+            Self::GoldenJuggernaut => write!(f, "Golden Juggernaut"),
+            Self::GoldenMobster => write!(f, "Golden Mobster"),
+            Self::ShieldTower => write!(f, "Shield Tower"),
+            Self::BehemothFactory => write!(f, "Behemoth Factory"),
+            Self::WarMachineFactory => write!(f, "War Machine Factory"),
+            Self::Refractor => write!(f, "Refractor"),
+            Self::CryoRanger => write!(f, "Cryo Ranger"),
+            Self::Commander => write!(f, "Commander"),
+            Self::Zed => write!(f, "Z.E.D."),
+            Self::Scarecrow => write!(f, "Scarecrow"),
+            Self::FlameTrooper => write!(f, "Flame Trooper"),
+            Self::Relic => write!(f, "Relic"),
+            Self::CryoHelicopter => write!(f, "Cryo Helicopter"),
+            Self::IceBreaker => write!(f, "Ice Breaker"),
+            Self::TrollTower => write!(f, "Troll Tower"),
+            Self::GooGunner => write!(f, "Goo Gunner"),
+            Self::ShockTrooper => write!(f, "Shock Trooper"),
+            Self::ShotgunnerLegacy => write!(f, "Shotgunner Legacy"),
         }
     }
 }

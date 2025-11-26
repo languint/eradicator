@@ -1,3 +1,5 @@
+use std::fmt;
+
 // TODO: Expand to include all maps from the TDX wiki.
 #[derive(Debug, Clone)]
 pub enum Maps {
@@ -8,6 +10,15 @@ pub enum Maps {
 impl Default for Maps {
     fn default() -> Self {
         Maps::Baseplate
+    }
+}
+
+impl fmt::Display for Maps {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        match self {
+            Self::Baseplate => write!(f, "Baseplate"),
+            Self::DesertedIsland => write!(f, "Deserted Island"),
+        }
     }
 }
 

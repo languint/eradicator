@@ -1,3 +1,5 @@
+use std::fmt;
+
 #[derive(Debug, Clone)]
 pub enum StandardMode {
     Easy,
@@ -7,6 +9,20 @@ pub enum StandardMode {
     Endless,
     Nightmare,
     Ultra,
+}
+
+impl fmt::Display for StandardMode {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        match self {
+            Self::Easy => write!(f, "Easy"),
+            Self::Intermediate => write!(f, "Intermediate"),
+            Self::Elite => write!(f, "Elite"),
+            Self::Expert => write!(f, "Expert"),
+            Self::Endless => write!(f, "Endless"),
+            Self::Nightmare => write!(f, "Nightmare"),
+            Self::Ultra => write!(f, "Ultra"),
+        }
+    }
 }
 
 #[derive(Debug, Clone)]
@@ -29,10 +45,42 @@ pub enum EventMode {
     TowerBattlesNightmare,
 }
 
+impl fmt::Display for EventMode {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        match self {
+            Self::XMASNormal => write!(f, "XMASNormal"),
+            Self::XMASNightmare => write!(f, "XMASNightmare"),
+            Self::Christmas1Normal => write!(f, "Christmas1Normal"),
+            Self::Christmas1Nightmare => write!(f, "Christmas1Nightmare"),
+            Self::Christmas2Normal => write!(f, "Christmas2Normal"),
+            Self::Christmas2Nightmare => write!(f, "Christmas2Nightmare"),
+            Self::Halloween1Normal => write!(f, "Halloween1Normal"),
+            Self::Halloween1Nightmare => write!(f, "Halloween1Nightmare"),
+            Self::Halloween2Normal => write!(f, "Halloween2Normal"),
+            Self::Halloween2Nightmare => write!(f, "Halloween2Nightmare"),
+            Self::Halloween3Normal => write!(f, "Halloween3Normal"),
+            Self::Halloween3Nightmare => write!(f, "Halloween3Nightmare"),
+            Self::Halloween4Normal => write!(f, "Halloween4Normal"),
+            Self::Halloween4Nightmare => write!(f, "Halloween4Nightmare"),
+            Self::TowerBattlesNormal => write!(f, "TowerBattlesNormal"),
+            Self::TowerBattlesNightmare => write!(f, "TowerBattlesNightmare"),
+        }
+    }
+}
+
 #[derive(Debug, Clone)]
 pub enum Gamemode {
     Standard(StandardMode),
     Event(EventMode),
+}
+
+impl fmt::Display for Gamemode {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        match self {
+            Self::Standard(s) => s.fmt(f),
+            Self::Event(e) => e.fmt(f),
+        }
+    }
 }
 
 impl Default for Gamemode {
